@@ -1,0 +1,21 @@
+{
+  "name": "nodecs",
+  "version": "1.0.0",
+  "description": "a point at which pathways branch to a connecting point. This experimental chatbot project aims to provide notify and provide discord-like tools to computer science students at university of science and technology of southern philippines",
+  "main": "main.js",
+  "scripts": {
+    "run": "nodemon main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chatbot",
+    "information",
+    "robot",
+    "webscrape"
+  ],
+  "author": "Joeninyo Cainday",
+  "license": "MIT",
+  "dependencies": {
+    "fb-chat-api": "^10.4.12"
+  }
+}
