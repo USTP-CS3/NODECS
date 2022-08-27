@@ -1,6 +1,6 @@
 {
   "name": "nodecs",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "a point at which pathways branch to a connecting point. This experimental chatbot project aims to provide notify and provide discord-like tools to computer science students at university of science and technology of southern philippines",
   "main": "main.js",
   "scripts": {
