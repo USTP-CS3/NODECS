@@ -1,183 +1,8 @@
-// const fs = require('fs');
-// const login = require("fb-chat-api");
-
-// // get version from package
-// let pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-// const version = pkg['version'];
-// console.log(`v${version}`);
-
-// // make sure database folder is present
-// if (!fs.existsSync('./database')) {
-// 	fs.mkdirSync('./database');
-// }
-
-// // setup user cookie credentials
-// const credentials = { 
-// /* 
-// 	https://youtu.be/y9_yd5a3scM
-// 	https://chrome.google.com/webstore/detail/j2team-cookies/okpidcojinmlaakglciglbpcpajaibco
-// */
-
-
-// 	appState: JSON.parse(
-// 		fs.readFileSync("fbcookies.json", "utf-8"))
-// 			.cookies 
-// }
-
-// // use cookie extractor extension to log in
-// login(credentials, (err, api) => {
-// 	const self = require('./self.js'); 
-// 	const func = require('./func.js');
-// 	const tool = require('./tool.js');
-
-// 	// check for errors when logging in
-// 	if(err) return console.error(err);
-
-// 	// allow listening and self events
-// 	api.setOptions({listenEvents: true});
-// 	api.setOptions({selfListen: true})
-
-// 	// chatbot event listener
-// 	const listen = api.listen(
-// 		(err, event) => {
-// 		if(err) return console.error(err);
-
-// 		// check what thread event-type recieved
-// 		if (event.type == 'message') 
-// 		{ // check chat thread information
-// 			api.getThreadInfo(event.threadID, 
-// 				(err, message) => {
-// 				if(err) console.error(err);
-
-// 				if (event.body.startsWith('>')) 
-// 				{ 	// message has command key?
-// 					const metadata = event.body.toLowerCase().slice(6);
-// 					const request = event.body.toLowerCase().slice(1,5);
-
-// 					let arr = metadata.split(" ");
-// 					const key = arr.shift();
-// 					const args = arr;
-
-// 					self.markRead(api, event); // mark read when event recieved
-// 					self.typingIndicator(api, event); // show typing indicator
-					
-// 					setTimeout(() => { // add 2s delay to prevent spam			
-// 						// listening to global
-// 						switch (request) 
-// 						{
-// 							case 'echo':
-// 								self.echo(api, event, '```'+metadata+'```');
-// 								break;
-// 							case 'calc':
-// 								func.eval(metadata, event);
-// 								break;
-// 							case 'wiki':
-// 								func.wiki(api, event, metadata);
-// 								break;
-// 							case 'what':
-// 								func.what();
-// 								break;
-// 							// bug here
-// 							/* 
-// 								case 'func':
-// 									self.echo(
-// 										"```\n"+
-// 										"---------------------------\n"+
-// 										`As of v${version},\n\n`+
-// 										">echo <text> // print text\n"+
-// 										">calc <math> // assess math\n"+
-// 										">func        // functions\n"+
-// 										">tool        // group tools\n"+
-// 										">what        // show about\n"+
-// 										"---------------------------\n"+
-// 										"```"
-// 									);
-// 									break;
-// 							*/
-// 							default:
-// 								// listening to superuser
-// 								if(message.snippetSender === self.superuser)
-// 								{
-// 									switch (request) 
-// 									{
-// 										case "stop":
-// 											self.echo(api, event, ```--offline--```);
-// 											return listen.stopListening();
-// 										default:
-// 											// superuser
-// 											self.echo(api, event, '```command <sudo> not found..```');
-// 									}
-// 								}
-// 								// listening to user only
-// 								else if (!message.isGroup) {
-// 									// ...
-// 								}
-// 								// listening to group only
-// 								else if (message.isGroup) {
-// 									switch (request) 
-// 									{
-// 										case 'actv': // working
-// 											tool.showActive(api, event);
-// 											break;
-// 										case 'memb': // working
-// 											tool.showMember(api, event, key);
-// 											break;
-// 										case 'crte': // working
-// 											tool.createStack(api, event, key, args);
-// 											break;
-// 										case 'dlte': // working
-// 											tool.deleteStack(api, event, key);
-// 											break;
-// 										case 'join': // working
-// 											tool.joinStack(api, event, message, key, args);									
-// 											break;
-// 										case 'leav': // working
-// 											tool.leaveStack(api, event, message, key);
-// 											break;
-// 										case 'tool': // working
-// 											self.echo(api, event,
-// 												"```\n"+
-// 												"------------------------\n"+
-// 												"stack member on a list\n\n"+
-// 												"([<key>] optional parameter/s)\n"+
-// 												">crte <name> [<key>] // create\n"+
-// 												">join <name> [<key>] // join\n"+
-// 												">show <name> // show members\n"+
-// 												">dlte <name> // delete stack\n"+
-// 												">leav <name> // leave stack\n"+
-// 												">actv        // show stacks\n"+
-// 												"------------------------\n"+
-// 												"```"
-// 											);
-// 											break;
-// 										default:
-// 											// regular user 
-// 											self.echo(api, event, '```command <rudo> not found..```');
-// 									}
-// 								}
-// 					}
-// 				}, 2000)
-// 				}
-// 			})
-// 		}
-// 		else if (event.type == 'event') 
-// 		{ // miscellaneous events (added, nickname, etc)
-// 			console.log(event, 'event occured');
-// 		}
-// 	});
-
-// 	// scheduler 
-// 	setInterval(() => {
-// 		const current = new Date(); 
-// 		console.log(current);
-// 	}, 1000);
-// });
-
-
 const SCHEDULE = [
 	{
 		subject: 'Art Appreciation',
 		faculty: 'Josan C. Fermano',
+		gcid: '5716034245160687',
 		date: [
 			{
 				day: 'Monday', 
@@ -218,6 +43,7 @@ const SCHEDULE = [
 	{
 		subject: 'Science, Technology, and Society',
 		faculty: 'John Mark B. Revilla',
+		gcid: '5784085135010708',
 		date: [
 			{
 				day: 'Monday', 
@@ -238,6 +64,7 @@ const SCHEDULE = [
 	{
 		subject: 'Fitness Activity and Exercises',
 		faculty: 'Bernadette M. Tallena',
+		gcid: '5865934063441917',
 		date: [
 			{
 				day: 'Friday', 
@@ -291,9 +118,10 @@ const SCHEDULE = [
 	{
 		subject: 'Physics for Computer Science (Basic Electronics)',
 		faculty: 'Jefrie Bilar',
+		gcid: '6335813383117874',
 		date: [
 			{
-				day: 'Thursday', 
+				day: 'Thursday',
 				time: {
 					in: new Date().setHours(15,0,0,0),
 					out: new Date().setHours(17,0,0,0)
@@ -320,77 +148,159 @@ const SCHEDULE = [
 				},
 			},
 		],
-	},
-
-	
+	},	
 ]
 
+let triggerRollcall = true;
+let triggerReminder = true;
 
-// what is the current day
-const DAYS = [
-	'Sunday', 
-	'Monday',
-	'Tuesday',
-	'Wednesday',
-	'Thursday',
-	'Friday',
-	'Saturday'
-];
-const DAY = DAYS[new Date().getDay()];
+const PAYAMAN = '5865527143482260';
+const QUAXODE = '5915493318539244';
+const UPDATES = '6395449667236192';
+const CS1D 	  = '8766273246780136';
+
+const login = require("fb-chat-api");
+
+// setup user cookie credentials
+const credentials = { 
+/* 
+	https://youtu.be/y9_yd5a3scM
+	https://chrome.google.com/webstore/detail/j2team-cookies/okpidcojinmlaakglciglbpcpajaibco
+*/
 
 
-// what are the subjects on that day
-function getTodaySubjects() {
-	let bucket = [];
-	let format = '';
-	for (const i of SCHEDULE) {
-		for (const j of i.date) {
-			const timeIn = 
-				new Date(j.time.in)
-				.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+	appState: JSON.parse(
+		fs.readFileSync("fbcookies.json", "utf-8"))
+			.cookies 
+}
+
+// use cookie extractor extension to log in
+login(credentials, (err, api) => {
+	// check for errors when logging in
+	if(err) return console.error(err);
+
+	// allow listening and self events
+	api.setOptions({listenEvents: false});
+	api.setOptions({selfListen: false})
+
+	api.sendMessage('`> bot is now online`', QUAXODE);
+
+	setInterval(() => {
+		if (triggerRollcall) {
+			const hour = new Date().getHours();
+			const minute = new Date().getMinutes();
+			const morning = hour === 4 && minute === 30;
+			const afternoon = hour === 12 && minute === 0;
 			
-			const timeOut = 
-				new Date(j.time.out)
-				.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+			if (morning || afternoon) {
+				const subjects = getTodaySubjects();
 
-			if (DAY == j.day) {
-				bucket.push(i);
+				let format = '';
+				format += '`'+`Good ${(hour < 12) ? 'Morning' : 'Afternoon'},`+'`\n\n';
 
-				format += 
-				`${i.subject}\n`+
-				`${j.day} `+
-				`${timeIn} - ${timeOut}\n`+
-				`${i.faculty}\n\n`;
+				for (const subj of subjects) {
+					const timeIn = 
+						new Date(subj.time.in)
+						.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+			
+					const timeOut = 
+						new Date(subj.time.out)
+						.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+	
+					format +=
+					'`'+`${subj.subject}`+'`\n'+
+					'`'+`${timeIn} - ${timeOut}`+'`\n'+
+					'`'+`${subj.faculty}`+'`\n\n';
+				}
+
+				console.log(format);
+				api.sendMessage(format, UPDATES);
+
+				triggerStartup = false;
+				triggerRollcall = false;
+				setTimeout(() => {
+					// wait 30 minutes to reactivate
+					triggerRollcall = true;
+				}, 500*60*60);
+			}
+		}
+
+		if (triggerReminder) {
+			const nextSubject = getNextSubject();
+			
+			if (nextSubject) {
+				// send reminder to chatbot
+				console.log('\n'+nextSubject);
+				api.sendMessage(nextSubject, UPDATES);
+				
+				triggerReminder = false;
+				setTimeout(() => {
+					// wait 30 minutes to reactivate
+					triggerReminder = true;
+				}, 500*60*60);
+			}
+		}
+		process.stdout.write(".");
+	}, 20000);
+});
+
+function getTodaySubjects() {
+
+	let bucket = [];
+	const {day, schedule} = filterCurrentDay(SCHEDULE);
+
+	for (const i of schedule) {
+		for (const j of i.date) {
+			if (day == j.day) {
+				bucket.push({
+					subject: i.subject,
+					faculty: i.faculty,
+					day: j.day,
+					time: {
+						in: j.time.in,
+						out: j.time.out
+					}
+				});
 			}
 		}
 	}
-	return {bucket, format};
+	
+	// sort based on day of week
+	return bucket.sort((a, b) => a.time.in - b.time.in);
 }
 
-function getNextSubjects() {
+function getNextSubject() {
+	const currentTime = new Date();
+		
+	const schedule = getTodaySubjects();
+	const filterUpcoming = schedule.filter(subject => subject.time.in >= currentTime);
+
+	const subject = filterUpcoming[0];
+	if (subject === undefined) return false;
 	
+	const targetTime = subject.time.in;
+	const {hours, minutes} = getTimeDifference(targetTime, currentTime);
+	const format = (hours > 0) 
+	? '`'+`${subject.subject}`+'`\n`'+`${hours} hours and ${minutes} minutes left...`+'`'
+	: '`'+`${subject.subject}`+'`\n`'+`${minutes} minutes left...`+'`';
+	
+	return (hours == 0 && minutes <= 15) ? format : false;
 }
 
-console.log(getTodaySubjects().bucket);
+function getTimeDifference(targetTime, currentTime) {
+	const differenceInMinutes = (targetTime - currentTime) / 1000 / 60;
+	const hours = Math.floor(differenceInMinutes / 60);
+	const minutes = Math.floor(differenceInMinutes % 60);
+	return {hours, minutes}
+}
 
-// setInterval(() => {
-// 	const now = new Date(); 
-// 	const day = now.getDay();
-// 	const time = now.toLocaleTimeString(); 
-	
-// 	console.log(time);
-// 	console.log(WEEK[day]);
+function filterCurrentDay(schedule) {
+	const today = new Date().getDay();
+	const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+	const currentDay = weekdays[today];
 
-// 	const morning = new Date().setHours(5,0,0,0);
-// 	const afternoon = new Date().setHours(12,0,0,0);
-
-// 	// if (morning < now) {
-// 	// console.log("7am has passed");
-// 	// } else {
-// 	// console.log("7am has not passed");
-// 	// }
-
-	
-// }, 1000);
-
-
+	return {
+		day: currentDay,
+		schedule: schedule.filter(subject => subject.date.some(day => day.day === currentDay))
+	}; 
+}
