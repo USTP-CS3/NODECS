@@ -159,6 +159,7 @@ const QUAXODE = '5915493318539244';
 const UPDATES = '6395449667236192';
 const CS1D 	  = '8766273246780136';
 
+const fs = require('fs');
 const login = require("fb-chat-api");
 
 // setup user cookie credentials
