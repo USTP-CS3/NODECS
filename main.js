@@ -7,15 +7,15 @@ const SCHEDULE = [
 			{
 				day: 'Monday', 
 				time: {
-					in: new Date().setHours(10,30),
-					out: new Date().setHours(12)
+					in: new Date().setHours(10,30,0,0),
+					out: new Date().setHours(12,0,0,0)
 				},
 			},
 			{
 				day: 'Thursday', 
 				time: {
-					in: new Date().setHours(10,30),
-					out: new Date().setHours(12)
+					in: new Date().setHours(10,30,0,0),
+					out: new Date().setHours(12,0,0,0)
 				},
 			}
 		],
@@ -27,15 +27,15 @@ const SCHEDULE = [
 			{
 				day: 'Monday', 
 				time: {
-					in: new Date().setHours(19,30),
-					out: new Date().setHours(21)
+					in: new Date().setHours(19,30,0,0),
+					out: new Date().setHours(21,0,0,0)
 				},
 			},
 			{
 				day: 'Thursday', 
 				time: {
-					in: new Date().setHours(19,30),
-					out: new Date().setHours(21)
+					in: new Date().setHours(19,30,0,0),
+					out: new Date().setHours(21,0,0,0)
 				},
 			}
 		],
@@ -48,15 +48,15 @@ const SCHEDULE = [
 			{
 				day: 'Monday', 
 				time: {
-					in: new Date().setHours(16,30),
-					out: new Date().setHours(18)
+					in: new Date().setHours(16,30,0,0),
+					out: new Date().setHours(18,0,0,0)
 				},
 			},
 			{
 				day: 'Thursday', 
 				time: {
-					in: new Date().setHours(16,30),
-					out: new Date().setHours(18)
+					in: new Date().setHours(16,30,0,0),
+					out: new Date().setHours(18,0,0,0)
 				},
 			}
 		],
@@ -69,8 +69,8 @@ const SCHEDULE = [
 			{
 				day: 'Friday', 
 				time: {
-					in: new Date().setHours(13),
-					out: new Date().setHours(15)
+					in: new Date().setHours(13,0,0,0),
+					out: new Date().setHours(15,0,0,0)
 				},
 			},
 		],
@@ -80,7 +80,7 @@ const SCHEDULE = [
 		faculty: 'Yamilita M. Pabilona',
 		date: [
 			{
-				day: 'Thursday', 
+				day: 'Tuesday', 
 				time: {
 					in: new Date().setHours(10,30,0,0),
 					out: new Date().setHours(12,0,0,0)
@@ -121,7 +121,7 @@ const SCHEDULE = [
 		gcid: '6335813383117874',
 		date: [
 			{
-				day: 'Thursday',
+				day: 'Tuesday',
 				time: {
 					in: new Date().setHours(15,0,0,0),
 					out: new Date().setHours(17,0,0,0)
