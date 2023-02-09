@@ -78,6 +78,7 @@ const SCHEDULE = [
 	{
 		subject: 'Linear Algebra for Computer Science',
 		faculty: 'Yamilita M. Pabilona',
+		gcid: '5565259690268202',
 		date: [
 			{
 				day: 'Thursday', 
