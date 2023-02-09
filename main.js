@@ -3,6 +3,7 @@ const SCHEDULE = [
 		subject: 'Art Appreciation',
 		faculty: 'Josan C. Fermano',
 		gcid: '5716034245160687',
+		meet: 'https://meet.google.com/acn-auiy-ejt',
 		date: [
 			{
 				day: 'Monday', 
