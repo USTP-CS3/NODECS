@@ -263,7 +263,8 @@ function getTodaySubjects() {
 					time: {
 						in: j.time.in,
 						out: j.time.out
-					}
+					},
+					meet: ('meet' in subject) ? i.meet : '',
 				});
 			}
 		}
@@ -289,7 +290,7 @@ function getNextSubject() {
 	? '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${hours} hours and ${minutes} minutes...`+'`'
 	: '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${minutes} minutes...`+'`';
 	
-	if ('meet' in subject) {
+	if (subject.meet) {
 		format += '\n\n';
 		format += '`'+subject.meet+'`';	
 	}
