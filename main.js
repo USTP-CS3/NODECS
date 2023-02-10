@@ -24,6 +24,8 @@ const SCHEDULE = [
 	{
 		subject: 'Understanding the Self',
 		faculty: 'N/A',
+		gcid: 'N/A',
+		meet: 'N/A',
 		date: [
 			{
 				day: 'Monday', 
@@ -45,6 +47,7 @@ const SCHEDULE = [
 		subject: 'Science, Technology, and Society',
 		faculty: 'John Mark B. Revilla',
 		gcid: '5784085135010708',
+		meet: 'N/A',
 		date: [
 			{
 				day: 'Monday', 
@@ -66,6 +69,7 @@ const SCHEDULE = [
 		subject: 'Fitness Activity and Exercises',
 		faculty: 'Bernadette M. Tallena',
 		gcid: '5865934063441917',
+		meet: 'N/A',
 		date: [
 			{
 				day: 'Friday', 
@@ -101,6 +105,8 @@ const SCHEDULE = [
 	{
 		subject: 'Computer Programming 2',
 		faculty: 'Joie Ann Mac',
+		gcid: 'N/A',
+		meet: 'N/A',
 		date: [
 			{
 				day: 'Wednesday', 
@@ -122,6 +128,7 @@ const SCHEDULE = [
 		subject: 'Physics for Computer Science (Basic Electronics)',
 		faculty: 'Jefrie Bilar',
 		gcid: '6335813383117874',
+		meet: 'N/A',
 		date: [
 			{
 				day: 'Tuesday',
@@ -142,6 +149,8 @@ const SCHEDULE = [
 	{
 		subject: 'Reserve Officer Training Corps 2',
 		faculty: 'Irish Delos Reyes',
+		gcid: 'N/A',
+		meet: 'N/A',
 		date: [
 			{
 				day: 'Saturday', 
@@ -264,7 +273,7 @@ function getTodaySubjects() {
 						in: j.time.in,
 						out: j.time.out
 					},
-					meet: ('meet' in subject) ? i.meet : '',
+					meet: i.meet,
 				});
 			}
 		}
@@ -290,10 +299,8 @@ function getNextSubject() {
 	? '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${hours} hours and ${minutes} minutes...`+'`'
 	: '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${minutes} minutes...`+'`';
 	
-	if (subject.meet) {
-		format += '\n\n';
-		format += '`'+subject.meet+'`';	
-	}
+	format += '\n\n';
+	format += '`'+subject.meet+'`';	
 
 	return (hours == 0 && minutes <= 10) ? format : false;
 }
