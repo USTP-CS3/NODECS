@@ -181,7 +181,6 @@ const credentials = {
 	https://chrome.google.com/webstore/detail/j2team-cookies/okpidcojinmlaakglciglbpcpajaibco
 */
 
-
 	appState: JSON.parse(
 		fs.readFileSync("fbcookies.json", "utf-8")
 	).cookies 
@@ -202,14 +201,13 @@ login(credentials, (err, api) => {
 		if (triggerRollcall) {
 			const hour = new Date().getHours();
 			const minute = new Date().getMinutes();
-			const morning = hour === 4 && minute === 30;
+			const morning = hour === 4 && minute === 0;
 			const afternoon = hour === 12 && minute === 0;
 			
 			if (morning || afternoon) {
 				const subjects = getTodaySubjects();
 
-				let format = '';
-				format += '`'+`Good ${(hour < 12) ? 'Morning' : 'Afternoon'},`+'`\n\n';
+				let format = '`'+`Good ${(hour < 12) ? 'Morning' : 'Afternoon'},`+'`\n\n';
 
 				for (const subj of subjects) {
 					const timeIn = 
@@ -226,8 +224,8 @@ login(credentials, (err, api) => {
 					'`'+`${subj.faculty}`+'`\n\n';
 				}
 
-				console.log(format);
 				api.sendMessage(format, UPDATES);
+				console.log('\n\n'+format);
 
 				triggerStartup = false;
 				triggerRollcall = false;
@@ -239,18 +237,32 @@ login(credentials, (err, api) => {
 		}
 
 		if (triggerReminder) {
-			const nextSubject = getNextSubject();
-			
-			if (nextSubject) {
-				// send reminder to chatbot
-				console.log('\n'+nextSubject);
-				api.sendMessage(nextSubject, UPDATES);
+			const subject = getNextSubject();
+			if (subject) {
+				const currentTime = subject.time.now;
+				const targetTime = subject.time.in;
 				
-				triggerReminder = false;
-				setTimeout(() => {
-					// wait 30 minutes to reactivate
-					triggerReminder = true;
-				}, 500*60*60);
+				const {hours, minutes} = getTimeDifference(targetTime, currentTime);
+				
+				if (hours == 0 && minutes <= 10) {
+					let format = (hours > 0) 
+						? '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${hours} hours and ${minutes} minutes...`+'`'
+						: '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${minutes} minutes...`+'`';
+					format += `\n\n ${subject.meet}`;
+
+					// send reminder to chatbot
+					api.sendMessage(format, UPDATES);
+					if (subject.gcid != 'N/A') {
+						api.sendMessage(format, subject.gcid);
+					}
+					console.log('\n\n'+format);
+					
+					triggerReminder = false;
+					setTimeout(() => {
+						// wait 30 minutes to reactivate
+						triggerReminder = true;
+					}, 500*60*60);
+				}
 			}
 		}
 		process.stdout.write(".");
@@ -258,10 +270,9 @@ login(credentials, (err, api) => {
 });
 
 function getTodaySubjects() {
-
 	let bucket = [];
 	const {day, schedule} = filterCurrentDay(SCHEDULE);
-
+	
 	for (const i of schedule) {
 		for (const j of i.date) {
 			if (day == j.day) {
@@ -271,7 +282,8 @@ function getTodaySubjects() {
 					day: j.day,
 					time: {
 						in: j.time.in,
-						out: j.time.out
+						out: j.time.out,
+						now: new Date(),
 					},
 					meet: i.meet,
 				});
@@ -284,25 +296,14 @@ function getTodaySubjects() {
 }
 
 function getNextSubject() {
-	const currentTime = new Date();
-		
 	const schedule = getTodaySubjects();
-	const filterUpcoming = schedule.filter(subject => subject.time.in >= currentTime);
-
+	const filterUpcoming = schedule.filter(subject => {
+		const currentTime = subject.time.now;
+		const targetTime = subject.time.in;
+		return targetTime >= currentTime;
+	});
 	const subject = filterUpcoming[0];
-	if (subject === undefined) return false;
-	
-	const targetTime = subject.time.in;
-	const {hours, minutes} = getTimeDifference(targetTime, currentTime);
-	
-	let format = (hours > 0) 
-	? '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${hours} hours and ${minutes} minutes...`+'`'
-	: '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${minutes} minutes...`+'`';
-	
-	format += '\n\n';
-	format += '`'+subject.meet+'`';	
-
-	return (hours == 0 && minutes <= 10) ? format : false;
+	return (subject !== undefined) ? subject : false;
 }
 
 function getTimeDifference(targetTime, currentTime) {
@@ -316,7 +317,6 @@ function filterCurrentDay(schedule) {
 	const today = new Date().getDay();
 	const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 	const currentDay = weekdays[today];
-
 	return {
 		day: currentDay,
 		schedule: schedule.filter(subject => subject.date.some(day => day.day === currentDay))
