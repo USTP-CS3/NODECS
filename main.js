@@ -80,6 +80,7 @@ const SCHEDULE = [
 		subject: 'Linear Algebra for Computer Science',
 		faculty: 'Yamilita M. Pabilona',
 		gcid: '5565259690268202',
+		meet: 'https://meet.google.com/rsa-fniz-erb',
 		date: [
 			{
 				day: 'Tuesday', 
@@ -109,7 +110,7 @@ const SCHEDULE = [
 				},
 			},
 			{
-				day: 'Friday', 
+				day: 'Saturday', 
 				time: {
 					in: new Date().setHours(13,30,0,0),
 					out: new Date().setHours(16,30,0,0)
@@ -173,8 +174,8 @@ const credentials = {
 
 
 	appState: JSON.parse(
-		fs.readFileSync("fbcookies.json", "utf-8"))
-			.cookies 
+		fs.readFileSync("fbcookies.json", "utf-8")
+	).cookies 
 }
 
 // use cookie extractor extension to log in
@@ -283,11 +284,17 @@ function getNextSubject() {
 	
 	const targetTime = subject.time.in;
 	const {hours, minutes} = getTimeDifference(targetTime, currentTime);
-	const format = (hours > 0) 
-	? '`'+`${subject.subject}`+'`\n`'+`${hours} hours and ${minutes} minutes left...`+'`'
-	: '`'+`${subject.subject}`+'`\n`'+`${minutes} minutes left...`+'`';
 	
-	return (hours == 0 && minutes <= 15) ? format : false;
+	let format = (hours > 0) 
+	? '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${hours} hours and ${minutes} minutes...`+'`'
+	: '`'+`Reminder: ${subject.subject}`+'`\n`'+`in ${minutes} minutes...`+'`';
+	
+	if ('meet' in subject) {
+		format += '\n\n';
+		format += '`'+subject.meet+'`';	
+	}
+
+	return (hours == 0 && minutes <= 10) ? format : false;
 }
 
 function getTimeDifference(targetTime, currentTime) {
