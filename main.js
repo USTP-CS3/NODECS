@@ -84,7 +84,7 @@ const SCHEDULE = [
 		subject: 'Linear Algebra for Computer Science',
 		faculty: 'Yamilita M. Pabilona',
 		gcid: '5565259690268202',
-		meet: 'https://meet.google.com/rsa-fniz-erb',
+		meet: 'https://meet.google.com/ztf-gppz-ggb',
 		date: [
 			{
 				day: 'Tuesday', 
