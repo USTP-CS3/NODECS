@@ -286,6 +286,7 @@ function getTodaySubjects() {
 						now: new Date(),
 					},
 					meet: i.meet,
+					gcid: i.gcid
 				});
 			}
 		}
